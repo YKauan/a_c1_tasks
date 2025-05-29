@@ -1,4 +1,4 @@
-import 'package:a_c1_tasks/components/task_widget.dart';
+import 'package:a_c1_tasks/data/task_inherited.dart';
 import 'package:flutter/material.dart';
 
 class InitialScreenWidget extends StatefulWidget {
@@ -9,32 +9,19 @@ class InitialScreenWidget extends StatefulWidget {
 }
 
 class _InitialScreenWidgetState extends State<InitialScreenWidget> {
-  bool opacity = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Tarefas'), leading: Container()),
-      body: AnimatedOpacity(
-        opacity: opacity ? 1 : 0,
-        duration: Duration(milliseconds: 800),
-        child: ListView(
-          children: const [
-            Task('Aprender Tlpp', 'assets/images/flutter_m.png', 3),
-            Task('Aprender Tlpp', 'assets/images/flutter_m.png', 4),
-            Task('Aprender Tlpp', 'assets/images/flutter_m.png', 1),
-            Task('Aprender Tlpp', 'assets/images/flutter_m.png', 5),
-            SizedBox(height: 80),
-          ],
-        ),
+      body: ListView(
+        padding: EdgeInsets.only(top: 8, bottom: 70),
+        children: TaskInherited.of(context)!.taskList,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            opacity = !opacity;
-          });
+          Navigator.of(context).pushReplacementNamed("/form");
         },
-        child: Icon(Icons.remove_red_eye),
+        child: Icon(Icons.add),
       ),
     );
   }
